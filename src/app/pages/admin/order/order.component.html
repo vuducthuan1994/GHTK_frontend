@@ -44,7 +44,7 @@
                                         type="number" class="form-control">
                                 </div>
                             </div>
-                            <div *ngIf="order.products.length > 0" class="col-6">
+                            <div *ngIf="products.length > 0" class="col-6">
                                 <table class="table">
                                     <thead>
                                         <tr>
@@ -57,7 +57,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr *ngFor="let item of order.products, let i = index">
+                                        <tr *ngFor="let item of products, let i = index">
                                             <th scope="row">{{i }}</th>
                                             <td>{{item.product_code}}</td>
                                             <td>{{item.name}}</td>
@@ -191,6 +191,12 @@
                                             aria-label="Đường/Phố ..." aria-describedby="basic-addon2">
                                     </div>
                                 </div>
+                                <label for="basic-url">Tên thôn/ấp/xóm/tổ/… của người nhận hàng.</label>
+                                <div class="input-group mb-3 col-6">
+                                    <input [(ngModel)]="order.hamlet" type="text" class="form-control"
+                                        placeholder="Tên thôn/ấp/xóm/tổ/… của người nhận hàng hóa."
+                                        aria-label="Tên thôn/ấp/xóm/tổ/… của người nhận hàng hóa." aria-describedby="basic-addon2">
+                                </div>
                                 <label for="basic-url">Email người nhận hàng hóa</label>
                                 <div class="input-group mb-3 col-6">
                                     <input [(ngModel)]="order.email" type="text" class="form-control"
@@ -207,6 +213,7 @@
                         </div>
                     </div>
                 </div>
+                <button (click) = "sendOrder()" class="btn btn-info">Gửi đơn hàng</button>
             </div>
         </div>
     </div>

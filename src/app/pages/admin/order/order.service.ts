@@ -4,7 +4,7 @@ import { AuthService } from '../../../auth/auth.service';
 @Injectable()
 
 export class OrderService {
-    private BASE_URL: string = 'http://localhost:3000/orders';
+    private BASE_URL_ORDER: string = 'http://localhost:3000/order';
 
     private BASE_URL_PROVINCES = 'https://vapi.vnappmob.com/api/province/';
     private BASE_URL_DISTRICT = 'https://vapi.vnappmob.com/api/province/district';
@@ -18,8 +18,8 @@ export class OrderService {
 
     constructor(private http: HttpClient, private authService: AuthService) { }
 
-    updateUser(id, data) {
-        return this.http.put(this.BASE_URL + `/${id}`, data, { headers: this.httpHeaders })
+    sendOrder(data) {
+        return this.http.post(`${this.BASE_URL_ORDER}/sendOrder`, data, { headers: this.httpHeaders })
     }
 
     getProvinces() {

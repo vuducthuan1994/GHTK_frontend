@@ -15,6 +15,7 @@ export class OrderComponent implements OnInit {
     quantity: null,
     product_code: null
   }
+  products =  [];
 
   provinces = [];
   pick_province_selected = [];
@@ -31,8 +32,9 @@ export class OrderComponent implements OnInit {
   order_wards = [];
   order_ward_selected = [];
 
+ 
   order = {
-    products: [],
+ 
     pick_name: 'Lê Thị Dung',
     pick_tel: '0356125026',
     pick_money: null,
@@ -45,6 +47,9 @@ export class OrderComponent implements OnInit {
     street: null,
     email: 'dung.ptit4@gmail.com',
     note: '',
+    transport: 'road',
+    pick_option : 'cod',
+    hamlet: 'Khác',
     use_return_address: 0
   }
 
@@ -96,14 +101,14 @@ export class OrderComponent implements OnInit {
   }
   addProduct() {
     if (this.product.name && this.product.product_code && this.product.quantity && this.product.weight) {
-      this.toastService.show('success', 'Thêm thành công sản phẩm');
-      this.order.products.push(this.product);
+      const newProduct = JSON.parse(JSON.stringify(this.product));
+      this.products.push(newProduct);
     } else {
       this.toastService.show('error', 'Điền thiếu thông tin sản phẩm');
     }
   }
   deleteProduct(_index) {
-    this.order.products.splice(_index, 1);
+    this.products.splice(_index, 1);
   }
   mappingDataDistrict(data, type = 'pick') {
     if (type == 'pick') {
@@ -169,10 +174,27 @@ export class OrderComponent implements OnInit {
   }
 
   sendOrder() {
-    if (this.order_province_selected.length > 0 && this.order_district_slected.length > 0 && (this.order_ward_selected.length > 0 && this.order.street)
-      && this.order.email && this.order.name && this.order.products.length > 0 && this.order.tel && this.order.address
+    console.log(this.order);
+    if (this.pick_ward_selected.length > 0 && this.order_province_selected.length > 0 && this.order_district_slected.length > 0 && (this.order_ward_selected.length > 0 || this.order.street)
+      && this.order.email && this.order.name && this.products.length > 0 && this.order.tel && this.order.address
     ) {
+      console.log
+      this.order['pick_province'] = this.pick_province_selected[0].itemName;
+      this.order['pick_district'] = this.pick_district_slected[0].itemName;
+      this.order['pick_ward'] = this.pick_ward_selected[0].itemName;
 
+      this.order['province'] = this.order_province_selected[0].itemName;
+      this.order['district'] = this.order_district_slected[0].itemName;
+      if( this.order_ward_selected.length > 0 ) {
+        this.order['ward'] = this.order_ward_selected[0].itemName;
+      }
+      let orderInfomation = {
+        products : this.products,
+        order: this.order
+      }
+      this.orderService.sendOrder(orderInfomation).subscribe(data => {
+        console.log(data);
+      })
     } else {
       this.toastService.show('error', 'Điền thiếu thông tin đơn hàng')
     }

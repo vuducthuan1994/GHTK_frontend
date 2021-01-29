@@ -11,13 +11,13 @@ export class ToastService {
             toast: true,
             position: 'top-end',
             showConfirmButton: false,
-            timer: 3000,
-            padding: '2em'
+            timer: 2000,
+            padding: '3em'
         });
         toast({
             type: type,
             title: message,
-            padding: '2em',
+            padding: '3em',
         })
     }
     confirm(title, callback,type?,buttonTrue?,text?) {
