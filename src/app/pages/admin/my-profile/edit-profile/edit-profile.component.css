@@ -1,0 +1,9 @@
+@import '/assets/admin/assets/css/users/account-setting.css';
+
+.btn-delete-skill{
+    cursor: pointer;
+}
+
+.btn-delete-skill:hover svg {
+ color: #e7515a;
+}

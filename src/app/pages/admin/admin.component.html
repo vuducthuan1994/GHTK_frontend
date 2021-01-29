@@ -1,0 +1,23 @@
+<body class="alt-menu sidebar-noneoverflow">
+    <div class="header-container fixed-top">
+        <app-header></app-header>
+    </div>
+    <div class="main-container sidebar-closed sbar-open" id="container">
+        <div class="overlay"></div>
+        <div class="cs-overlay"></div>
+        <div class="search-overlay"></div>
+        <div class="sidebar-wrapper sidebar-theme">
+            <app-nav-bar></app-nav-bar>
+
+        </div>
+        <div id="content" class="main-content">
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+    <script src="../../../assets/admin/assets/js/app.js"></script>
+    <script>
+        $(document).ready(function() {
+            App.init();
+        });
+    </script>
+</body>
