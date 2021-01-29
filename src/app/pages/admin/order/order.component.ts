@@ -50,6 +50,7 @@ export class OrderComponent implements OnInit {
     transport: 'road',
     pick_option : 'cod',
     hamlet: 'Khác',
+    is_freeship : false,
     use_return_address: 0
   }
 
