@@ -5,72 +5,95 @@
         <div class="account-content">
             <div class="scrollspy-example" data-spy="scroll" data-target="#account-settings-scroll" data-offset="-100">
                 <div class="row">
-                    <div class="col-xl-12 col-lg-12 col-md-12 layout-spacing">
-                        <h3 class="text-center text-primary">Thông tin sản phẩm</h3>
-                        <button (click)="addProduct()" class="btn btn-success">Thêm sản phẩm</button>
-                        <div class="row">
-                            <div class="col-6">
-                                <div class="input-group mb-2">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">Mã sản phẩm</span>
+                    <div class="col-12 layout-spacing">
+                        <div class="statbox widget box box-shadow">
+                            <div class="widget-header">
+                                <div class="row">
+                                    <div class="col-xl-12 col-md-12 col-sm-12 col-12">
+                                        <h4>Thông tin đơn hàng</h4>
+                                        <button (click)="addProduct()" class="btn btn-success">Thêm sản phẩm</button>
                                     </div>
-                                    <input [(ngModel)]="product.product_code" placeholder="Điền mã sản phẩm..."
-                                        type="text" class="form-control">
-                                </div>
-                                <div class="input-group mb-2">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text" id="basic-addon7">Tên sản phẩm</span>
-                                    </div>
-                                    <input [(ngModel)]="product.name" type="text" class="form-control" id="basic-url"
-                                        aria-describedby="basic-addon3" placeholder="Điền tên sản phẩm...">
-                                </div>
-
-                                <div class="input-group mb-2">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">Cân nặng</span>
-                                    </div>
-                                    <input [(ngModel)]="product.weight" placeholder="Điền cân nặng của sản phẩm"
-                                        type="number" class="form-control" aria-label="Amount (to the nearest dollar)">
-                                    <div class="input-group-append">
-                                        <span class="input-group-text">KG</span>
-                                    </div>
-                                </div>
-
-                                <div class="input-group mb-2">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">Số lượng</span>
-                                    </div>
-                                    <input [(ngModel)]="product.quantity" placeholder="Điền số lượng sản phẩm"
-                                        type="number" class="form-control">
                                 </div>
                             </div>
-                            <div *ngIf="products.length > 0" class="col-6">
-                                <table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">#</th>
-                                            <th scope="col">Mã sản phẩm</th>
-                                            <th scope="col">Tên sản phẩm</th>
-                                            <th scope="col">Cân nặng</th>
-                                            <th scope="col">Số lượng</th>
-                                            <th scope="col">Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr *ngFor="let item of products, let i = index">
-                                            <th scope="row">{{i }}</th>
-                                            <td>{{item.product_code}}</td>
-                                            <td>{{item.name}}</td>
-                                            <td>{{item.weight}}</td>
-                                            <td>{{item.quantity}}</td>
-                                            <td><button (click)="deleteProduct(i)" class="btn btn-danger">Xóa</button>
-                                            </td>
-                                        </tr>
-
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
+                            <div class="widget-content widget-content-area mb-4">
+                                <div class="row">
+                                    <div class="col-4">
+                                        <div class="input-group mb-2">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">Mã sản phẩm</span>
+                                            </div>
+                                            <input [(ngModel)]="product.product_code" placeholder="Điền mã sản phẩm..."
+                                                type="text" class="form-control">
+                                        </div>
+                                        <div class="input-group mb-2">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text" id="basic-addon7">Tên sản phẩm</span>
+                                            </div>
+                                            <input [(ngModel)]="product.name" type="text" class="form-control" id="basic-url"
+                                                aria-describedby="basic-addon3" placeholder="Điền tên sản phẩm...">
+                                        </div>
+        
+                                        <div class="input-group mb-2">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">Cân nặng</span>
+                                            </div>
+                                            <input [(ngModel)]="product.weight" placeholder="Điền cân nặng của sản phẩm"
+                                                type="number" class="form-control" >
+                                            <div class="input-group-append">
+                                                <span class="input-group-text">KG</span>
+                                            </div>
+                                        </div>
+                                        <div class="input-group mb-2">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">Đơn giá</span>
+                                            </div>
+                                            <input [(ngModel)]="product.price" placeholder="Điền đơn giá của sản phẩm"
+                                                type="number" class="form-control" >
+                                            <div class="input-group-append">
+                                                <span class="input-group-text">{{product.price | currency:'VND'}}</span>
+                                            </div>
+                                        </div>
+        
+                                        <div class="input-group mb-2">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">Số lượng</span>
+                                            </div>
+                                            <input [(ngModel)]="product.quantity" placeholder="Điền số lượng sản phẩm"
+                                                type="number" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div *ngIf="products.length > 0" class="col-8">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">#</th>
+                                                    <th scope="col">Mã sản phẩm</th>
+                                                    <th scope="col">Tên sản phẩm</th>
+                                                    <th scope="col">Đơn giá</th>
+                                                    <th scope="col">Cân nặng</th>
+                                                    <th scope="col">Số lượng</th>
+                                                    <th scope="col">Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let item of products, let i = index">
+                                                    <th scope="row">{{i }}</th>
+                                                    <td>{{item.product_code}}</td>
+                                                    <td>{{item.name}}</td>
+                                                    <td>{{item.price}}</td>
+                                                    <td>{{item.weight}}</td>
+                                                    <td>{{item.quantity}}</td>
+                                                    <td><button (click)="deleteProduct(i)" class="btn btn-danger">Xóa</button>
+                                                    </td>
+                                                </tr>
+        
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                </div>
+                            </div>    
+                   
                         <div class="row">
                             <div class="col-6">
                                 <div class="statbox widget box box-shadow">
@@ -81,82 +104,83 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="widget-content widget-content-area">
+                                        <div class="input-group mb-2">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">Số tiền cần thu hộ</span>
+                                            </div>
+                                            <input [(ngModel)]="order.pick_money" placeholder="Số tiền cần thu hộ Ví dụ : 500000...."
+                                                type="number" class="form-control" >
+                                            <div class="input-group-append">
+                                                <span class="input-group-text">{{order.pick_money | currency:'VND'}}</span>
+                                            </div>
+                                        </div>
+    
+                                
+    
+    
+                                        <div class="input-group mb-2">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">Tên người liên hệ lấy hàng</span>
+                                            </div>
+                                            <input [(ngModel)]="order.pick_name" placeholder="Tên người liên hệ lấy hàng..."
+                                                type="text" class="form-control">
+                                        </div>
+    
+                                        <div class="input-group mb-2">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">SĐT người liên hệ lấy hàng</span>
+                                            </div>
+                                            <input [(ngModel)]="order.pick_tel" placeholder="SĐT người liên hệ lấy hàng..."
+                                                type="text" class="form-control">
+                                        </div>
+    
+    
+    
+    
+                                        <label for="basic-url">Địa chỉ ngắn gọn để lấy hàng</label>
+                                        <div class="input-group mb-3 col-12">
+                                            <input [(ngModel)]="order.pick_address" type="text" class="form-control"
+                                                placeholder="Địa chỉ ngắn gọn để lấy hàng...."
+                                                aria-label="Địa chỉ ngắn gọn để lấy hàng..."
+                                                aria-describedby="basic-addon2">
+                                        </div>
+                                        <label for="basic-url">Tên tỉnh thành phố nơi lấy hàng</label>
+                                        <div class="input-group mb-3">
+                                            <angular2-multiselect [data]="provinces" [(ngModel)]="pick_province_selected"
+                                                [settings]="dropdownProvinceSettings"
+                                                (onSelect)="onProvinceSelect($event,'pick')"
+                                                (onDeSelect)="OnItemDeSelect($event)"
+                                                (onDeSelectAll)="onDeSelectAll($event)">
+                                            </angular2-multiselect>
+                                        </div>
+    
+                                        <label for="basic-url">Tên quận/huyện nơi lấy hàng</label>
+                                        <div class="input-group mb-3 w-100">
+                                            <angular2-multiselect [data]="pick_districts"
+                                                [(ngModel)]="pick_district_slected" [settings]="dropdowndistrictSettings"
+                                                (onSelect)="onDistrictSelect($event,'pick')"
+                                                (onDeSelect)="OnItemDeSelect($event)"
+                                                (onDeSelectAll)="onDeSelectAll($event)">
+                                            </angular2-multiselect>
+                                        </div>
+    
+                                        <label for="basic-url">Tên phường/xã nơi lấy hàng ( Có thể không chọn)</label>
+                                        <div class="input-group mb-3">
+                                            <angular2-multiselect [data]="pick_wards" [(ngModel)]="pick_ward_selected"
+                                                [settings]="dropdownWardSettings" (onDeSelect)="OnItemDeSelect($event)"
+                                                (onDeSelectAll)="onDeSelectAll($event)"></angular2-multiselect>
+                                        </div>
+    
+                                        <label for="basic-url">Email liên hệ nơi lấy hàng hóa</label>
+                                        <div class="input-group mb-3">
+                                            <input [(ngModel)]="order.pick_email" type="text" class="form-control"
+                                                placeholder="Email liên hệ lấy hàng hóa..."
+                                                aria-label="Email liên hệ lấy hàng hóa..." aria-describedby="basic-addon2">
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="widget-content widget-content-area">
-                                    <div class="input-group mb-2">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text">Số tiền cần thu hộ</span>
-                                        </div>
-                                        <input [(ngModel)]="order.pick_money" placeholder="Số tiền cần thu hộ Ví dụ : 500000...."
-                                            type="number" class="form-control" >
-                                        <div class="input-group-append">
-                                            <span class="input-group-text">{{order.pick_money | currency:'VND'}}</span>
-                                        </div>
-                                    </div>
-
-                            
-
-
-                                    <div class="input-group mb-2">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text">Tên người liên hệ lấy hàng</span>
-                                        </div>
-                                        <input [(ngModel)]="order.pick_name" placeholder="Tên người liên hệ lấy hàng..."
-                                            type="text" class="form-control">
-                                    </div>
-
-                                    <div class="input-group mb-2">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text">SĐT người liên hệ lấy hàng</span>
-                                        </div>
-                                        <input [(ngModel)]="order.pick_tel" placeholder="SĐT người liên hệ lấy hàng..."
-                                            type="text" class="form-control">
-                                    </div>
-
-
-
-
-                                    <label for="basic-url">Địa chỉ ngắn gọn để lấy hàng</label>
-                                    <div class="input-group mb-3 col-12">
-                                        <input [(ngModel)]="order.pick_address" type="text" class="form-control"
-                                            placeholder="Địa chỉ ngắn gọn để lấy hàng...."
-                                            aria-label="Địa chỉ ngắn gọn để lấy hàng..."
-                                            aria-describedby="basic-addon2">
-                                    </div>
-                                    <label for="basic-url">Tên tỉnh thành phố nơi lấy hàng</label>
-                                    <div class="input-group mb-3">
-                                        <angular2-multiselect [data]="provinces" [(ngModel)]="pick_province_selected"
-                                            [settings]="dropdownProvinceSettings"
-                                            (onSelect)="onProvinceSelect($event,'pick')"
-                                            (onDeSelect)="OnItemDeSelect($event)"
-                                            (onDeSelectAll)="onDeSelectAll($event)">
-                                        </angular2-multiselect>
-                                    </div>
-
-                                    <label for="basic-url">Tên quận/huyện nơi lấy hàng</label>
-                                    <div class="input-group mb-3 w-100">
-                                        <angular2-multiselect [data]="pick_districts"
-                                            [(ngModel)]="pick_district_slected" [settings]="dropdowndistrictSettings"
-                                            (onSelect)="onDistrictSelect($event,'pick')"
-                                            (onDeSelect)="OnItemDeSelect($event)"
-                                            (onDeSelectAll)="onDeSelectAll($event)">
-                                        </angular2-multiselect>
-                                    </div>
-
-                                    <label for="basic-url">Tên phường/xã nơi lấy hàng ( Có thể không chọn)</label>
-                                    <div class="input-group mb-3">
-                                        <angular2-multiselect [data]="pick_wards" [(ngModel)]="pick_ward_selected"
-                                            [settings]="dropdownWardSettings" (onDeSelect)="OnItemDeSelect($event)"
-                                            (onDeSelectAll)="onDeSelectAll($event)"></angular2-multiselect>
-                                    </div>
-
-                                    <label for="basic-url">Email liên hệ nơi lấy hàng hóa</label>
-                                    <div class="input-group mb-3">
-                                        <input [(ngModel)]="order.pick_email" type="text" class="form-control"
-                                            placeholder="Email liên hệ lấy hàng hóa..."
-                                            aria-label="Email liên hệ lấy hàng hóa..." aria-describedby="basic-addon2">
-                                    </div>
-                                </div>
+                           
 
                             </div>
                             <div class="col-6">
@@ -174,6 +198,14 @@
                                                 <span class="input-group-text">Tên người nhận hàng</span>
                                             </div>
                                             <input [(ngModel)]="order.name" placeholder="Điền tên người nhận hàng..."
+                                                type="text" class="form-control">
+                                        </div>
+
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">FB Người nhận hàng</span>
+                                            </div>
+                                            <input [(ngModel)]="order.fb_link" placeholder="Điền FB Link người nhận hàng..."
                                                 type="text" class="form-control">
                                         </div>
 

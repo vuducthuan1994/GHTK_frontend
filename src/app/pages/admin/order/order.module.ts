@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { OrderService } from './order.service';
 import { OrderComponent } from './order.component';
 import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown';
 @NgModule({
@@ -18,7 +17,7 @@ import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown';
     exports: [
         OrderComponent
     ],
-    providers: [OrderService],
+    providers: [],
 
 })
 export class OrderModule { }

@@ -1,0 +1,68 @@
+
+<div class="layout-px-spacing">
+
+  <div class="account-settings-container layout-top-spacing">
+
+    <div class="account-content">
+      <div class="scrollspy-example" data-spy="scroll" data-target="#account-settings-scroll" data-offset="-100">
+        <div class="row">
+          <div class="col-lg-4 col-md-4 form-group">
+            <label>Khoảng thời gian</label>
+            <input class="form-control" type="text" name="daterangeInput" daterangepicker [options]="options"
+            (selected)="selectedDate($event, daterange)" />       
+           </div>
+           <div class="col-lg-12 col-md-12 form-group">
+            <div class="text-center">
+                <button (click)="clickBtnSearch()" class="btn btn-info"> Tìm kiếm</button>
+            </div>
+        </div>
+        </div>
+          <div class="row" id="cancel-row">
+              <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
+                  <div class="widget-content widget-content-area br-6">
+                      <div class="table-responsive mb-4 mt-4">
+                          <table id="zero-config" class="table table-hover" style="width:100%">
+                              <thead>
+                                  <tr>
+                                      <th>Tên Khách Hàng</th>
+                                      <th>Giá Trị Đơn Hàng</th>
+                                      <th>Mã Đơn GHTK</th>
+                                      <th>Thời gian</th>
+                                      <th>Thông tin sản phẩm</th>
+                                      <th>FB Khách hàng</th>
+                                      <th>Action</th>
+                                  </tr>
+                              </thead>
+                              <tbody>
+                                  <tr *ngFor = "let item of orders , let i = index">
+                                      <td>{{item.name}}</td>
+                                      <td>{{item.pick_money | currency:'VND' }}</td>       
+                                     <td>{{item.orderInfomation.label}}</td>
+                                     <td>{{item.created_date | date : 'M/d/yy ,  h:mm:ss a'}}</td>
+                                      <td>
+                                          <div *ngFor = "let product of item.products">
+                                            <label>Mã : {{product.product_code}}</label> - <strong> Số lượng : {{product.quantity}}</strong>
+                                          </div>
+                                      </td>
+                                      <td><a target="_blank" [href] = "item.fb_link">{{item.fb_link}}</a></td>
+                                      <td>
+                                        <a (click) = "checkOrder(item)" class="btn btn-primary">Check</a>
+                                      </td>
+                                  </tr>
+                             
+                       
+                         
+                               
+                              </tbody>
+  
+                          </table>
+                      </div>
+                  </div>
+              </div>
+
+          </div>
+      </div>
+    </div>
+  </div>
+
+</div>

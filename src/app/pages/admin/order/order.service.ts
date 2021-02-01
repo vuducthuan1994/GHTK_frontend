@@ -1,10 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+
+import { Observable } from 'rxjs';
 import { AuthService } from '../../../auth/auth.service';
+import {ServiceConfig} from '../../../../config/config'
 @Injectable()
 
 export class OrderService {
-    private BASE_URL_ORDER: string = 'http://localhost:3000/order';
+    private BASE_URL_ORDER: string = `${ServiceConfig.host}/order`;
 
     private BASE_URL_PROVINCES = 'https://vapi.vnappmob.com/api/province/';
     private BASE_URL_DISTRICT = 'https://vapi.vnappmob.com/api/province/district';
@@ -15,11 +18,14 @@ export class OrderService {
         'Cache-Control': 'no-cache',
         'Authorization': this.authService.getToken()
     });
-
+    
     constructor(private http: HttpClient, private authService: AuthService) { }
 
-    sendOrder(data) {
+    sendOrder(data) : Observable<any>  {
         return this.http.post(`${this.BASE_URL_ORDER}/sendOrder`, data, { headers: this.httpHeaders })
+    }
+    checkOrder(filterOptions) : Observable<any>  {
+        return this.http.post(`${this.BASE_URL_ORDER}/checkOrder`, filterOptions, { headers: this.httpHeaders })
     }
 
     getProvinces() {
@@ -32,5 +38,10 @@ export class OrderService {
 
     getWard(districtID) {
         return this.http.get(`${this.BASE_URL_WARD}/${districtID}`,{headers : this.httpHeaders});
+    }
+
+    getOrders(filterOptions) : Observable<any> {
+        return this.http.post(`${this.BASE_URL_ORDER}/getOrders`,filterOptions, { headers: this.httpHeaders })
+
     }
 }

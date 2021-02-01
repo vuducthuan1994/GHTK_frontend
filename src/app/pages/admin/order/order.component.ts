@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { OrderService } from './order.service';
 import { ToastService } from '../../../service/toast.service';
+import { LoadingService } from '../../../common/loading/loading.service';
 @Component({
   selector: 'app-order',
   templateUrl: './order.component.html',
@@ -8,12 +9,16 @@ import { ToastService } from '../../../service/toast.service';
 })
 export class OrderComponent implements OnInit {
 
-  constructor(private orderService: OrderService, private toastService: ToastService) { }
+  constructor(private orderService: OrderService, 
+    private toastService: ToastService,
+    private loadingService: LoadingService
+    ) { }
   product = {
     name: null,
     weight: null,
     quantity: null,
-    product_code: null
+    product_code: null,
+    price: null
   }
   products =  [];
 
@@ -37,7 +42,7 @@ export class OrderComponent implements OnInit {
  
     pick_name: 'Lê Thị Dung',
     pick_tel: '0356125026',
-    pick_money: null,
+    pick_money: 0,
     pick_address: 'Tầng 4, Tập thể B2 Giảng Võ',
     pick_email: 'dung.ptit4@gmail.com',
 
@@ -51,7 +56,8 @@ export class OrderComponent implements OnInit {
     pick_option : 'cod',
     hamlet: 'Khác',
     is_freeship : false,
-    use_return_address: 0
+    use_return_address: 0,
+    fb_link : null,
   }
 
   dropdownProvinceSettings = {};
@@ -104,6 +110,7 @@ export class OrderComponent implements OnInit {
     if (this.product.name && this.product.product_code && this.product.quantity && this.product.weight) {
       const newProduct = JSON.parse(JSON.stringify(this.product));
       this.products.push(newProduct);
+      this.order.pick_money += newProduct.price * newProduct.quantity;
     } else {
       this.toastService.show('error', 'Điền thiếu thông tin sản phẩm');
     }
@@ -193,9 +200,16 @@ export class OrderComponent implements OnInit {
         products : this.products,
         order: this.order
       }
+      this.loadingService.show();
       this.orderService.sendOrder(orderInfomation).subscribe(data => {
-        console.log(data);
-      })
+        if(data.success) {
+          this.toastService.show('success', 'Đăng đơn hàng thành công') 
+        } else {
+          this.toastService.show('error', `${data.message}`)
+        }
+        this.loadingService.hide();
+
+      });
     } else {
       this.toastService.show('error', 'Điền thiếu thông tin đơn hàng')
     }

@@ -2,11 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { User } from './login/model/user';
+import { ServiceConfig } from '../../config/config';
 
 @Injectable()
 export class AuthService {
-    private BASE_URL: string = 'http://localhost:3000/auth';
-    private USERS_URL: string = 'http://localhost:300/users'
+    private BASE_URL: string = `${ServiceConfig.host}/auth`;
+
+
     private httpHeaders = new HttpHeaders({
         'Content-Type': 'application/json',
         'Cache-Control': 'no-cache',

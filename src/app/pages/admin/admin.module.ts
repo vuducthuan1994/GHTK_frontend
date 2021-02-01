@@ -9,26 +9,30 @@ import { HeaderComponent } from './layouts/header/header.component';
 import { NavBarComponent } from './layouts/nav-bar/nav-bar.component';
 import { MyProfileModule } from './my-profile/my-profile.module';
 import { OrderModule } from './order/order.module';
+import { OrderManagerComponent } from './order-manager/order-manager.component';
+import { Daterangepicker } from 'ng2-daterangepicker';
+import { OrderService } from './order/order.service';
 
 @NgModule({
-    declarations: [
-      UserManagementComponent,
-      AdminComponent,
-      HeaderComponent,
-      NavBarComponent
-    ],
-    imports: [
-      BrowserModule,
-      FormsModule,
-      CommonModule,
-      RouterModule,
-      MyProfileModule,
-      OrderModule
-    ],
-    exports: [
-        AdminComponent
-    ],
-    providers: [ DatePipe]
-    
-  })
-  export class AdminModule { }
+  declarations: [
+    UserManagementComponent,
+    OrderManagerComponent,
+    AdminComponent,
+    HeaderComponent,
+    NavBarComponent
+  ],
+  imports: [
+    Daterangepicker,
+    BrowserModule,
+    FormsModule,
+    CommonModule,
+    RouterModule,
+    MyProfileModule,
+    OrderModule  ],
+  exports: [
+    AdminComponent
+  ],
+  providers: [DatePipe,OrderService]
+
+})
+export class AdminModule { }

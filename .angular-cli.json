@@ -5,7 +5,7 @@
     },
     "apps": [{
         "root": "src",
-        "outDir": "dist",
+        "outDir": "../dist",
         "assets": [
             "assets",
             "favicon.ico"
@@ -20,7 +20,12 @@
         "styles": [
             "styles.css"
         ],
-        "scripts": ["../src/assets/admin/assets/js/app.js"],
+        "scripts": [
+            "../src/assets/admin/assets/js/app.js",  
+            "../node_modules/jquery/dist/jquery.min.js"
+     
+        ],
+            
         "environmentSource": "environments/environment.ts",
         "environments": {
             "dev": "environments/environment.ts",

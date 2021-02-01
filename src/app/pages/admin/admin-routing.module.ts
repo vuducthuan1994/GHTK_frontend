@@ -6,6 +6,7 @@ import { LoginRedirect } from '../../auth/login-redirect.service';
 import { MyProfileComponent } from './my-profile/detail-profile/my-profile.component';
 import { EditProfileComponent } from './my-profile/edit-profile/edit-profile.component';
 import { OrderComponent } from './order/order.component';
+import { OrderManagerComponent } from './order-manager/order-manager.component';
 
 const routes: Routes = [
   {
@@ -22,6 +23,12 @@ const routes: Routes = [
       {
         path: 'user-management',
         component: UserManagementComponent,
+        pathMatch: 'full',
+        canActivate :[LoginRedirect]
+      },
+      {
+        path: 'order-management',
+        component: OrderManagerComponent,
         pathMatch: 'full',
         canActivate :[LoginRedirect]
       },

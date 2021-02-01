@@ -13,8 +13,7 @@ import { LoadingService } from './common/loading/loading.service';
 @NgModule({
   declarations: [
     AppComponent,
-    LoadingComponent
-  ],
+    LoadingComponent  ],
   imports: [
     BrowserModule,
     FormsModule,
