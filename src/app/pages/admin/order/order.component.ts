@@ -16,9 +16,9 @@ export class OrderComponent implements OnInit {
   product = {
     name: null,
     weight: null,
-    quantity: null,
+    quantity: 1,
     product_code: null,
-    price: null
+    price: 0
   }
   products =  [];
 
@@ -39,13 +39,15 @@ export class OrderComponent implements OnInit {
 
  
   order = {
- 
+    weight : 0,
+    total_money : 0,
     pick_name: 'Lê Thị Dung',
     pick_tel: '0356125026',
     pick_money: 0,
+    value:0,
     pick_address: 'Tầng 4, Tập thể B2 Giảng Võ',
     pick_email: 'dung.ptit4@gmail.com',
-
+    fee_ship : 0,
     name: null,
     tel: null,
     address: null,
@@ -55,7 +57,7 @@ export class OrderComponent implements OnInit {
     transport: 'road',
     pick_option : 'cod',
     hamlet: 'Khác',
-    is_freeship : false,
+    is_freeship : 0,
     use_return_address: 0,
     fb_link : null,
     deliver_work_shift: 2
@@ -100,13 +102,15 @@ export class OrderComponent implements OnInit {
   resetOrder () {
     
   this.order = {
- 
+    weight : 0,
+    fee_ship: 0,
+    total_money: 0,
     pick_name: 'Lê Thị Dung',
     pick_tel: '0356125026',
     pick_money: 0,
     pick_address: 'Tầng 4, Tập thể B2 Giảng Võ',
     pick_email: 'dung.ptit4@gmail.com',
-
+    value: 0,
     name: null,
     tel: null,
     address: null,
@@ -116,7 +120,7 @@ export class OrderComponent implements OnInit {
     transport: 'road',
     pick_option : 'cod',
     hamlet: 'Khác',
-    is_freeship : false,
+    is_freeship : 0,
     use_return_address: 0,
     fb_link : null,
     deliver_work_shift: 2
@@ -138,12 +142,21 @@ export class OrderComponent implements OnInit {
       const newProduct = JSON.parse(JSON.stringify(this.product));
       this.products.push(newProduct);
       this.order.pick_money += newProduct.price * newProduct.quantity;
+      this.order.weight+=newProduct.weight;
+      this.order.value += newProduct.price * newProduct.quantity;
+      this.getFee();
     } else {
       this.toastService.show('error', 'Điền thiếu thông tin sản phẩm');
     }
   }
   deleteProduct(_index) {
-    this.products.splice(_index, 1);
+    if (_index>=0) {
+      this.order.pick_money -= this.products[_index].price * this.products[_index].quantity;
+      this.order.value -= this.products[_index].price * this.products[_index].quantity;
+      this.order.weight-= this.products[_index].weight;
+      this.products.splice(_index, 1);
+      this.getFee();
+    }
   }
   mappingDataDistrict(data, type = 'pick') {
     if (type == 'pick') {
@@ -196,6 +209,7 @@ export class OrderComponent implements OnInit {
   }
 
   onProvinceSelect(item: any, type) {
+    this.getFee();
     this.orderService.getDistrict(item.id).subscribe(data => {
       this.mappingDataDistrict(data['results'], type);
     });
@@ -203,9 +217,43 @@ export class OrderComponent implements OnInit {
 
 
   onDistrictSelect(item: any, type) {
+    this.getFee();
     this.orderService.getWard(item.id).subscribe(data => {
       this.mappingDataWard(data['results'], type);
     });
+  }
+
+  onIsFreeShipChange(value) {
+    if(value == 0) {
+      this.order.total_money = this.order.pick_money +  this.order.fee_ship;
+    }
+    if(value == 1) {
+      this.order.total_money = this.order.pick_money;
+    }
+  }
+
+  getFee() {
+    if(this.order_district_slected.length > 0 &&
+        this.order_province_selected.length > 0 &&
+        this.pick_district_slected.length >0 &&
+        this.pick_province_selected.length > 0 &&
+        this.order.weight > 0
+      ) {
+     
+        const obj= {
+          pick_province : this.pick_province_selected[0].itemName,
+          pick_district : this.pick_district_slected[0].itemName,
+          weight :this.order.weight * 1000,
+          province: this.order_province_selected[0].itemName,
+          district : this.order_district_slected[0].itemName
+        }
+        this.orderService.getFee(obj).subscribe( data =>{
+          this.order.fee_ship = data.fee.fee;
+          if(this.order.is_freeship == 0) {
+            this.order.total_money = this.order.pick_money +  this.order.fee_ship;
+          }
+        })
+      }
   }
 
   sendOrder() {

@@ -27,6 +27,9 @@ export class OrderService {
     checkOrder(filterOptions) : Observable<any>  {
         return this.http.post(`${this.BASE_URL_ORDER}/checkOrder`, filterOptions, { headers: this.httpHeaders })
     }
+    getFee(body) : Observable<any> {
+        return this.http.post(`${this.BASE_URL_ORDER}/getFee`, body, { headers: this.httpHeaders })
+    }
 
     getProvinces() {
         return this.http.get(this.BASE_URL_PROVINCES,{headers : this.httpHeaders});
