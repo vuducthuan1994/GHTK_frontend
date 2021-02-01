@@ -76,9 +76,9 @@
 
                             <div class="col-4">
                                 <h3 class="text-left text-white">Thông tin điểm lấy hàng</h3>
-                           
-                           
-                            
+
+
+
                                 <label for="basic-url">Số tiền cần thu hộ</label>
                                 <div class="input-group mb-3 col-12">
                                     <input [(ngModel)]="order.pick_money" type="number" class="form-control"
@@ -110,24 +110,25 @@
                                 <label for="basic-url">Tên tỉnh thành phố nơi lấy hàng</label>
                                 <div class="input-group mb-3">
                                     <angular2-multiselect [data]="provinces" [(ngModel)]="pick_province_selected"
-                                        [settings]="dropdownProvinceSettings" (onSelect)="onProvinceSelect($event,'pick')"
-                                        (onDeSelect)="OnItemDeSelect($event)" 
-                                        (onDeSelectAll)="onDeSelectAll($event)"></angular2-multiselect>
+                                        [settings]="dropdownProvinceSettings"
+                                        (onSelect)="onProvinceSelect($event,'pick')"
+                                        (onDeSelect)="OnItemDeSelect($event)" (onDeSelectAll)="onDeSelectAll($event)">
+                                    </angular2-multiselect>
                                 </div>
 
                                 <label for="basic-url">Tên quận/huyện nơi lấy hàng</label>
                                 <div class="input-group mb-3 w-100">
                                     <angular2-multiselect [data]="pick_districts" [(ngModel)]="pick_district_slected"
-                                        [settings]="dropdowndistrictSettings" (onSelect)="onDistrictSelect($event,'pick')"
-                                        (onDeSelect)="OnItemDeSelect($event)" 
-                                        (onDeSelectAll)="onDeSelectAll($event)"></angular2-multiselect>
+                                        [settings]="dropdowndistrictSettings"
+                                        (onSelect)="onDistrictSelect($event,'pick')"
+                                        (onDeSelect)="OnItemDeSelect($event)" (onDeSelectAll)="onDeSelectAll($event)">
+                                    </angular2-multiselect>
                                 </div>
 
                                 <label for="basic-url">Tên phường/xã nơi lấy hàng ( Có thể không chọn)</label>
                                 <div class="input-group mb-3 w-100">
                                     <angular2-multiselect [data]="pick_wards" [(ngModel)]="pick_ward_selected"
-                                        [settings]="dropdownWardSettings" 
-                                        (onDeSelect)="OnItemDeSelect($event)" 
+                                        [settings]="dropdownWardSettings" (onDeSelect)="OnItemDeSelect($event)"
                                         (onDeSelectAll)="onDeSelectAll($event)"></angular2-multiselect>
                                 </div>
 
@@ -138,89 +139,130 @@
                                         aria-label="Email liên hệ lấy hàng hóa..." aria-describedby="basic-addon2">
                                 </div>
                             </div>
-                            <div class="col-4">
-                                <h3 class="text-left text-white">Thông tin điểm giao hàng</h3>
-                    
-                                <label for="basic-url">Tên người nhận hàng</label>
-                                <div class="input-group mb-3 col-12">
-                                    <input [(ngModel)]="order.name" type="text" class="form-control"
-                                        placeholder="Tên người nhận hàng...."
-                                        aria-label="Tên người nhận hàng...." aria-describedby="basic-addon2">
-                                </div>
-                                <label for="basic-url">Số điện thoại người nhận hàng hóa...</label>
-                                <div class="input-group mb-3 col-12">
-                                    <input [(ngModel)]="order.tel" type="text" class="form-control"
-                                        placeholder="Số điện thoại người nhận hàng hóa..." aria-label="Enter phone...."
-                                        aria-describedby="basic-addon2">
-                                </div>
+                            <div class="col-6">
+                                <div class="statbox widget box box-shadow">
+                                    <div class="widget-header">
+                                        <div class="row">
+                                            <div class="col-xl-12 col-md-12 col-sm-12 col-12">
+                                                <h4>Thông tin điểm giao hàng</h4>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="widget-content widget-content-area">
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">Tên người nhận hàng</span>
+                                            </div>
+                                            <input [(ngModel)]="order.name" placeholder="Điền tên người nhận hàng..."
+                                                type="text" class="form-control">
+                                        </div>
+
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">SĐT người nhận hàng</span>
+                                            </div>
+                                            <input [(ngModel)]="order.tel"
+                                                placeholder="Số điện thoại người nhận hàng hóa..." type="text"
+                                                class="form-control">
+                                        </div>
+
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">Đ/C chi tiết của người nhận hàng</span>
+                                            </div>
+                                            <input [(ngModel)]="order.address"
+                                                placeholder="Địa chỉ chi tiết của người nhận hàng..." type="text"
+                                                class="form-control">
+                                        </div>
+
+                                        <div class="input-group mb-3 d-flex">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">Tên tỉnh thành phố nơi nhận hàng</span>
+                                            </div>
+                                            <div class="input-group col-6 bg-white">
+                                                <angular2-multiselect [data]="provinces"
+                                                    [(ngModel)]="order_province_selected"
+                                                    [settings]="dropdownProvinceSettings"
+                                                    (onSelect)="onProvinceSelect($event,'order')"
+                                                    (onDeSelect)="OnItemDeSelect($event)"
+                                                    (onDeSelectAll)="onDeSelectAll($event)"></angular2-multiselect>
+                                            </div>
+                                        </div>
+
+                                        <div class="input-group mb-3 d-flex">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">Tên quận/huyện nơi nhận hàng</span>
+                                            </div>
+                                            <div class="input-group col-6 bg-white">
+                                                <angular2-multiselect [data]="order_districts"
+                                                    [(ngModel)]="order_district_slected"
+                                                    [settings]="dropdowndistrictSettings"
+                                                    (onSelect)="onDistrictSelect($event,'order')"
+                                                    (onDeSelect)="OnItemDeSelect($event)"
+                                                    (onDeSelectAll)="onDeSelectAll($event)"></angular2-multiselect>
+                                            </div>
+                                        </div>
 
 
-                                <label for="basic-url">Địa chỉ chi tiết của người nhận hàng</label>
-                                <div class="input-group mb-3 col-12">
-                                    <input [(ngModel)]="order.address" type="text" class="form-control"
-                                        placeholder="Địa chỉ chi tiết của người nhận hàng...."
-                                        aria-label="Địa chỉ chi tiết của người nhận hàng..." aria-describedby="basic-addon2">
-                                </div>
-                                <label for="basic-url">Tên tỉnh thành phố nơi nhận hàng</label>
-                                <div class="input-group mb-3">
-                                    <angular2-multiselect [data]="provinces" [(ngModel)]="order_province_selected"
-                                        [settings]="dropdownProvinceSettings" (onSelect)="onProvinceSelect($event,'order')"
-                                        (onDeSelect)="OnItemDeSelect($event)" 
-                                        (onDeSelectAll)="onDeSelectAll($event)"></angular2-multiselect>
-                                </div>
+                                        <div *ngIf="!order.street" class="input-group mb-3 d-flex">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">Tên phường/xã nơi nhận hàng</span>
+                                            </div>
+                                            <div class="input-group col-6 bg-white">
+                                                <angular2-multiselect [data]="order_wards"
+                                                    [(ngModel)]="order_ward_selected" [settings]="dropdownWardSettings"
+                                                    (onDeSelect)="OnItemDeSelect($event)"
+                                                    (onDeSelectAll)="onDeSelectAll($event)"></angular2-multiselect>
+                                            </div>
+                                        </div>
 
-                                <label for="basic-url">Tên quận/huyện nơi nhận hàng</label>
-                                <div class="input-group mb-3 w-100">
-                                    <angular2-multiselect [data]="order_districts" [(ngModel)]="order_district_slected"
-                                        [settings]="dropdowndistrictSettings" (onSelect)="onDistrictSelect($event,'order')"
-                                        (onDeSelect)="OnItemDeSelect($event)" 
-                                        (onDeSelectAll)="onDeSelectAll($event)"></angular2-multiselect>
-                                </div>
-                                <div *ngIf="!order.street">
-                                    <label for="basic-url">Tên phường/xã nơi nhận hàng</label>
-                                    <div class="input-group mb-3 w-100">
-                                        <angular2-multiselect [data]="order_wards" [(ngModel)]="order_ward_selected"
-                                            [settings]="dropdownWardSettings" 
-                                            (onDeSelect)="OnItemDeSelect($event)" 
-                                            (onDeSelectAll)="onDeSelectAll($event)"></angular2-multiselect>
+
+
+                                        <div *ngIf="order_ward_selected.length == 0" class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">Đường/Phố</span>
+                                            </div>
+                                            <input [(ngModel)]="order.street"
+                                            placeholder="Đường/Phố ...." type="text"
+                                                class="form-control">
+                                        </div>
+
+
+
+
+                                        <label for="basic-url">Tên thôn/ấp/xóm/tổ/… của người nhận hàng.</label>
+                                        <div class="input-group mb-3 col-12">
+                                            <input [(ngModel)]="order.hamlet" type="text" class="form-control"
+                                                placeholder="Tên thôn/ấp/xóm/tổ/… của người nhận hàng hóa."
+                                                aria-label="Tên thôn/ấp/xóm/tổ/… của người nhận hàng hóa."
+                                                aria-describedby="basic-addon2">
+                                        </div>
+                                        <label for="basic-url">Email người nhận hàng hóa</label>
+                                        <div class="input-group mb-3 col-12">
+                                            <input [(ngModel)]="order.email" type="text" class="form-control"
+                                                placeholder="Email liên hệ lấy hàng hóa..."
+                                                aria-label="Email liên hệ lấy hàng hóa..."
+                                                aria-describedby="basic-addon2">
+                                        </div>
+                                        <div class="input-group mb-4">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">Ghi chú</span>
+                                            </div>
+                                            <textarea [(ngModel)]="order.note" class="form-control"
+                                                aria-label="With textarea"></textarea>
+                                        </div>
+                                        <div class="d-flex">
+                                            <p for="basic-url">Đơn hàng FreeShip ? </p>
+                                            <input style="width: 30px; margin-top: -15px;" class="form-control"
+                                                type="checkbox" [(ngModel)]="order.is_freeship" />
+                                        </div>
                                     </div>
-                                </div>
-                              
-                                <div *ngIf="order_ward_selected.length == 0">
-                                    <label for="basic-url">Đường/Phố</label>
-                                    <div class="input-group mb-3 col-12">
-                                        <input [(ngModel)]="order.street" type="text" class="form-control"
-                                            placeholder="Đường/Phố ...."
-                                            aria-label="Đường/Phố ..." aria-describedby="basic-addon2">
-                                    </div>
-                                </div>
-                                <label for="basic-url">Tên thôn/ấp/xóm/tổ/… của người nhận hàng.</label>
-                                <div class="input-group mb-3 col-12">
-                                    <input [(ngModel)]="order.hamlet" type="text" class="form-control"
-                                        placeholder="Tên thôn/ấp/xóm/tổ/… của người nhận hàng hóa."
-                                        aria-label="Tên thôn/ấp/xóm/tổ/… của người nhận hàng hóa." aria-describedby="basic-addon2">
-                                </div>
-                                <label for="basic-url">Email người nhận hàng hóa</label>
-                                <div class="input-group mb-3 col-12">
-                                    <input [(ngModel)]="order.email" type="text" class="form-control"
-                                        placeholder="Email liên hệ lấy hàng hóa..."
-                                        aria-label="Email liên hệ lấy hàng hóa..." aria-describedby="basic-addon2">
-                                </div>
-                                <div class="input-group mb-4">
-                                    <div class="input-group-prepend">
-                                      <span class="input-group-text">Ghi chú</span>
-                                    </div>
-                                    <textarea [(ngModel)]="order.note" class="form-control" aria-label="With textarea"></textarea>
-                                  </div>
-                                  <div class="d-flex">
-                                    <p for="basic-url">Đơn hàng FreeShip ? </p>
-                                    <input style="width: 30px; margin-top: -15px;" class="form-control" type="checkbox" [(ngModel)]="order.is_freeship"  />
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <button (click) = "sendOrder()" class="btn btn-info">Gửi đơn hàng</button>
+                <button (click)="sendOrder()" class="btn btn-info">Gửi đơn hàng</button>
             </div>
         </div>
     </div>
