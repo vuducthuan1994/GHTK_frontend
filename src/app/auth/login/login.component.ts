@@ -49,7 +49,7 @@ export class LoginComponent implements OnInit {
       this.loadingService.hide();
       this.toastService.show('success', 'Đăng nhập thành công !');
       // this.router.navigateByUrl('/admin')
-      this.router.navigate(["/admin"]);
+      this.router.navigate(["/admin/order"]);
     
     }, err => {
       this.loadingService.hide();
