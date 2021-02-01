@@ -58,6 +58,7 @@ export class OrderComponent implements OnInit {
     is_freeship : false,
     use_return_address: 0,
     fb_link : null,
+    deliver_work_shift: 2
   }
 
   dropdownProvinceSettings = {};
@@ -94,6 +95,32 @@ export class OrderComponent implements OnInit {
     this.pick_ward_selected = [
       { id: "00031", itemName: "Phường Giảng Võ" }
     ]
+  }
+
+  resetOrder () {
+    
+  this.order = {
+ 
+    pick_name: 'Lê Thị Dung',
+    pick_tel: '0356125026',
+    pick_money: 0,
+    pick_address: 'Tầng 4, Tập thể B2 Giảng Võ',
+    pick_email: 'dung.ptit4@gmail.com',
+
+    name: null,
+    tel: null,
+    address: null,
+    street: null,
+    email: 'dung.ptit4@gmail.com',
+    note: '',
+    transport: 'road',
+    pick_option : 'cod',
+    hamlet: 'Khác',
+    is_freeship : false,
+    use_return_address: 0,
+    fb_link : null,
+    deliver_work_shift: 2
+  }
   }
 
   mappingDataProvinces(data) {
@@ -186,7 +213,6 @@ export class OrderComponent implements OnInit {
     if (this.pick_ward_selected.length > 0 && this.order_province_selected.length > 0 && this.order_district_slected.length > 0 && (this.order_ward_selected.length > 0 || this.order.street)
       && this.order.email && this.order.name && this.products.length > 0 && this.order.tel && this.order.address
     ) {
-      console.log
       this.order['pick_province'] = this.pick_province_selected[0].itemName;
       this.order['pick_district'] = this.pick_district_slected[0].itemName;
       this.order['pick_ward'] = this.pick_ward_selected[0].itemName;
@@ -203,6 +229,7 @@ export class OrderComponent implements OnInit {
       this.loadingService.show();
       this.orderService.sendOrder(orderInfomation).subscribe(data => {
         if(data.success) {
+          this.resetOrder();
           this.toastService.show('success', 'Đăng đơn hàng thành công') 
         } else {
           this.toastService.show('error', `${data.message}`)

@@ -10,8 +10,7 @@
                             <div class="widget-header">
                                 <div class="row">
                                     <div class="col-xl-12 col-md-12 col-sm-12 col-12">
-                                        <h4>Thông tin đơn hàng</h4>
-                                        <button (click)="addProduct()" class="btn btn-success">Thêm sản phẩm</button>
+                                        <h4>Thêm sản phẩm</h4>
                                     </div>
                                 </div>
                             </div>
@@ -61,7 +60,10 @@
                                             <input [(ngModel)]="product.quantity" placeholder="Điền số lượng sản phẩm"
                                                 type="number" class="form-control">
                                         </div>
+                                        <button (click)="addProduct()" class="btn btn-primary">Thêm Ngay</button>
+
                                     </div>
+                                    <p class="text-danger text-center col-8">Đơn hàng chưa có sản phẩm nào !</p>
                                     <div *ngIf="products.length > 0" class="col-8">
                                         <table class="table">
                                             <thead>
@@ -145,32 +147,51 @@
                                                 aria-label="Địa chỉ ngắn gọn để lấy hàng..."
                                                 aria-describedby="basic-addon2">
                                         </div>
-                                        <label for="basic-url">Tên tỉnh thành phố nơi lấy hàng</label>
-                                        <div class="input-group mb-3">
-                                            <angular2-multiselect [data]="provinces" [(ngModel)]="pick_province_selected"
+
+                                        <div class="input-group mb-3 d-flex">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">Tên tỉnh thành phố nơi lấy hàng</span>
+                                            </div>
+                                            <div class="input-group col-6 bg-white">
+                                                <angular2-multiselect [data]="provinces" [(ngModel)]="pick_province_selected"
                                                 [settings]="dropdownProvinceSettings"
                                                 (onSelect)="onProvinceSelect($event,'pick')"
                                                 (onDeSelect)="OnItemDeSelect($event)"
                                                 (onDeSelectAll)="onDeSelectAll($event)">
                                             </angular2-multiselect>
+                                            </div>
                                         </div>
-    
-                                        <label for="basic-url">Tên quận/huyện nơi lấy hàng</label>
-                                        <div class="input-group mb-3 w-100">
-                                            <angular2-multiselect [data]="pick_districts"
+
+
+
+                                        <div class="input-group mb-3 d-flex">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">Tên quận/huyện nơi lấy hàng</span>
+                                            </div>
+                                            <div class="input-group col-6 bg-white">
+                                                <angular2-multiselect [data]="pick_districts"
                                                 [(ngModel)]="pick_district_slected" [settings]="dropdowndistrictSettings"
                                                 (onSelect)="onDistrictSelect($event,'pick')"
                                                 (onDeSelect)="OnItemDeSelect($event)"
                                                 (onDeSelectAll)="onDeSelectAll($event)">
                                             </angular2-multiselect>
+                                            </div>
                                         </div>
-    
-                                        <label for="basic-url">Tên phường/xã nơi lấy hàng ( Có thể không chọn)</label>
-                                        <div class="input-group mb-3">
-                                            <angular2-multiselect [data]="pick_wards" [(ngModel)]="pick_ward_selected"
+
+                                        <div class="input-group mb-3 d-flex">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">Tên phường/xã nơi lấy hàng</span>
+                                            </div>
+                                            <div class="input-group col-6 bg-white">
+                                                <angular2-multiselect [data]="pick_wards" [(ngModel)]="pick_ward_selected"
                                                 [settings]="dropdownWardSettings" (onDeSelect)="OnItemDeSelect($event)"
                                                 (onDeSelectAll)="onDeSelectAll($event)"></angular2-multiselect>
+                                            </div>
                                         </div>
+
+
+    
+                             
     
                                         <label for="basic-url">Email liên hệ nơi lấy hàng hóa</label>
                                         <div class="input-group mb-3">
@@ -199,6 +220,18 @@
                                             </div>
                                             <input [(ngModel)]="order.name" placeholder="Điền tên người nhận hàng..."
                                                 type="text" class="form-control">
+                                        </div>
+
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">Ca giao</span>
+                                            </div>
+                                            <select [(ngModel)]="order.deliver_work_shift" class="form-control  basic">
+                                                <option value="1">Buổi sáng</option>
+                                                <option value="2">Buổi Chiều</option>
+                                                <option value="3">Buổi tối</option>
+                                            </select>
+    
                                         </div>
 
                                         <div class="input-group mb-3">
@@ -303,8 +336,7 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text">Đơn hàng FreeShip ?</span>
                                             </div>
-                                            <input style="width: 50px;" type="checkbox"
-                                                [(ngModel)]="order.is_freeship" />
+                                            <input style="width: 50px;" type="checkbox" [(ngModel)]="order.is_freeship" />
                                         </div>
                                     </div>
                                 </div>

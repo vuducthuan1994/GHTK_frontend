@@ -52,10 +52,11 @@ export class OrderManagerComponent implements OnInit {
     })
   }
 
-  checkOrder(order) {
+  checkOrder(_index,order) {
     let options  = {label : order.orderInfomation.label}
     this.orderService.checkOrder(options).subscribe(data =>{
-      console.log(data);
+      this.orders[_index]['status_text'] = data.order.status_text;
+      console.log(data.order.statusText);
     })
   }
 
