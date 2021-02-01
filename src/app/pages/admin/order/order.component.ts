@@ -37,7 +37,9 @@ export class OrderComponent implements OnInit {
   order_wards = [];
   order_ward_selected = [];
 
- 
+  pick_sessions =  [
+
+  ]
   order = {
     weight : 0,
     total_money : 0,
@@ -60,7 +62,9 @@ export class OrderComponent implements OnInit {
     is_freeship : 0,
     use_return_address: 0,
     fb_link : null,
-    deliver_work_shift: 2
+    deliver_work_shift: 2,
+    pick_street: 'Trần Huy Liệu',
+    pick_session: null,
   }
 
   dropdownProvinceSettings = {};
@@ -102,6 +106,7 @@ export class OrderComponent implements OnInit {
   resetOrder () {
     
   this.order = {
+    pick_session: null,
     weight : 0,
     fee_ship: 0,
     total_money: 0,
@@ -123,10 +128,18 @@ export class OrderComponent implements OnInit {
     is_freeship : 0,
     use_return_address: 0,
     fb_link : null,
-    deliver_work_shift: 2
+    deliver_work_shift: 2,
+    pick_street: 'Trần Huy Liệu'
   }
   }
 
+  pickMoneyChanged(value) {
+    if(this.order.is_freeship == 0) {
+      this.order.total_money = value +  this.order.fee_ship;
+    } else {
+      this.order.total_money = value
+    }
+  }
   mappingDataProvinces(data) {
     data.forEach(item => {
       let province = {
@@ -144,18 +157,32 @@ export class OrderComponent implements OnInit {
       this.order.pick_money += newProduct.price * newProduct.quantity;
       this.order.weight+=newProduct.weight;
       this.order.value += newProduct.price * newProduct.quantity;
+      this.order.total_money += newProduct.price * newProduct.quantity;
+  
       this.getFee();
+      this.checkXfast();
     } else {
       this.toastService.show('error', 'Điền thiếu thông tin sản phẩm');
     }
   }
   deleteProduct(_index) {
     if (_index>=0) {
-      this.order.pick_money -= this.products[_index].price * this.products[_index].quantity;
-      this.order.value -= this.products[_index].price * this.products[_index].quantity;
-      this.order.weight-= this.products[_index].weight;
+      if (this.order.pick_money > this.products[_index].price * this.products[_index].quantity) {
+        this.order.pick_money -= this.products[_index].price * this.products[_index].quantity;
+      }
+     
+      if( this.order.value > this.products[_index].price * this.products[_index].quantity) {
+        this.order.value -= this.products[_index].price * this.products[_index].quantity;
+      }
+      if ( this.order.weight > this.products[_index].weight) {
+        this.order.weight-= this.products[_index].weight;
+      }
+      if(this.order.total_money > this.products[_index].price * this.products[_index].quantity) {
+        this.order.total_money  -=this.products[_index].price * this.products[_index].quantity;
+      }
       this.products.splice(_index, 1);
       this.getFee();
+      this.checkXfast();
     }
   }
   mappingDataDistrict(data, type = 'pick') {
@@ -209,15 +236,22 @@ export class OrderComponent implements OnInit {
   }
 
   onProvinceSelect(item: any, type) {
-    this.getFee();
+  
     this.orderService.getDistrict(item.id).subscribe(data => {
       this.mappingDataDistrict(data['results'], type);
+      this.getFee();
+      this.checkXfast();
     });
   }
 
+  onWardSelected(item: any, type) {
+    this.getFee();
+    this.checkXfast();
+  }
 
   onDistrictSelect(item: any, type) {
     this.getFee();
+    this.checkXfast();
     this.orderService.getWard(item.id).subscribe(data => {
       this.mappingDataWard(data['results'], type);
     });
@@ -256,10 +290,45 @@ export class OrderComponent implements OnInit {
       }
   }
 
+  checkXfast() {
+    console.log('check xfast')
+    if(this.order_district_slected.length > 0 &&
+        this.order_province_selected.length > 0 &&
+        this.pick_district_slected.length >0 &&
+        this.pick_province_selected.length > 0 &&
+        this.order.weight > 0  &&
+        (this.order.pick_street || this.pick_ward_selected.length > 0)
+      ) {
+     
+        const obj= {
+          pick_province : this.pick_province_selected[0].itemName,
+           pick_district : this.pick_district_slected[0].itemName,
+          pick_street : this.order.pick_street,
+          pick_ward : this.pick_ward_selected.length > 0 ?  this.pick_ward_selected[0].itemName : null,
+          customer_province: this.order_province_selected[0].itemName,
+          customer_district : this.order_district_slected[0].itemName,
+          customer_ward : this.order_ward_selected.length > 0?this.order_ward_selected[0].itemName : null,
+        //  customer_street: this.order.street,
+          customer_first_address: this.order.address,
+       
+        }
+        this.orderService.checkXfast(obj).subscribe( data =>{
+        this.order.pick_session = null;
+         if(data.success) {
+           for(var key in data.data){
+           this.pick_sessions.push(data.data[key]);
+           }
+         }else {
+           this.pick_sessions =[];
+         }
+        })
+      }
+  }
+
   sendOrder() {
     console.log(this.order);
     if (this.pick_ward_selected.length > 0 && this.order_province_selected.length > 0 && this.order_district_slected.length > 0 && (this.order_ward_selected.length > 0 || this.order.street)
-      && this.order.email && this.order.name && this.products.length > 0 && this.order.tel && this.order.address
+      && this.order.email && this.order.name && this.products.length > 0 && this.order.tel && this.order.address 
     ) {
       this.order['pick_province'] = this.pick_province_selected[0].itemName;
       this.order['pick_district'] = this.pick_district_slected[0].itemName;

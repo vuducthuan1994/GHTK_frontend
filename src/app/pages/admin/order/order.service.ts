@@ -45,6 +45,10 @@ export class OrderService {
 
     getOrders(filterOptions) : Observable<any> {
         return this.http.post(`${this.BASE_URL_ORDER}/getOrders`,filterOptions, { headers: this.httpHeaders })
-
     }
+
+    checkXfast(body) : Observable<any> {
+        return this.http.post(`${this.BASE_URL_ORDER}/checkXfast`, body, { headers: this.httpHeaders })
+    }
+
 }
